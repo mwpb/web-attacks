@@ -46,4 +46,10 @@ The site of sub.defender.localhost is also defender.localhost.
 So now this isn't a cross-site request and the SameSite attribute is ignored.
 
 The site of a URL is determined by the public suffix list and the next specifier.
->>>>>>> 9538e688d2f9581b78481196d62b04e1c0e76e5a
+
+** CORF denied by checking the Origin header
+
+Modern browsers now include the whole origin in the Origin header.
+So we can actually check the whole origin and programmatically disallow cookies coming from the wrong place.
+To see this working uncomment lines 30-33 in 'web-attacks/csrf/defender-backend/src/app.ts'.
+Then the CORF is prevented also.

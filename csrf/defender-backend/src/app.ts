@@ -24,6 +24,13 @@ app.get("/clearCookie", (req, res) => {
 });
 
 app.post("/mutateState", (req, res) => {
+  let originHeader = req.headers.origin ?? "";
+
+  // if (originHeader !== "http://defender.localhost") {
+  //   res.send("Access denied.");
+  //   return;
+  // }
+
   if (req.cookies["defenderDevCookie"] === "insecureToken") {
     res.send("State changed.");
     return;
