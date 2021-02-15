@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+  proxy:
+    image: nginx:latest
+    container_name: web-attacks-proxy
+    hostname: web-attacks-proxy
+    volumes:
+      - "./Nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./Nginx/nginx/error_logs:/etc/nginx/error_logs"
+    ports:
+      - "80:80"
+    # networks:
+    #   app:
+    #     aliases:
+    #       - attacker.localhost
+    #       - defender.localhost
+
+  attacker:
+    build: ./attacker-backend
+    container_name: web-attacks-attacker-backend
+    hostname: web-attacks-attacker-backend
+    ports:
+      - 8090:8080
+    volumes:
+      - ./attacker-backend:/usr/src/app
+
+  defender:
+    build: ./defender-backend
+    container_name: web-attacks-defender-backend
+    hostname: web-attacks-defender-backend
+    ports:
+      - 8091:8080
+    volumes:
+      - ./defender-backend:/usr/src/app
