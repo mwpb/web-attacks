@@ -1,3 +1,4 @@
 #+TITLE:README
 
-We have deliberately turned off some security features provided by the Adonis JS framework to construct a simple example.
+This repo is a demonstration of cross-site request forgery (CSRF).
+As such it is unsafe and should only be used for demonstration purposes.
