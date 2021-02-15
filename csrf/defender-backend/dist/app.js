@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
 });
 app.get("/setCookie", (req, res) => {
     res.cookie("defenderDevCookie", "insecureToken", {
-        sameSite: "strict",
+    // sameSite: "strict",
     });
     res.send("Set cookie.");
 });
