@@ -3,3 +3,47 @@
 This repo is a demonstration of cross-site request forgery (CSRF).
 As such it is unsafe code and should only be used for demonstration purposes.
 
+* How to run
+
+Add the following to `/etc/hosts`.
+(Or use a sandboxed browser like firejail to specify a custom hosts file.)
+
+`127.0.0.1 attacker.localhost defender.localhost sub.defender.localhost`
+
+In this directory (web-attacks/csrf) run the following commands:-
+
+- `cd attacker-backend`
+- `npm i`
+- `cd ../defender-backend`
+- `npm i`
+- `cd ..` (I.e. back into web-attacks/csrf.)
+- `docker-compose build`
+- `docker-compose up`
+
+* Demonstrating the attack
+
+** CSRF attack with no protection
+
+- Set a cookie for defender.localhost by navigating to 'http://defender.localhost/setCookie'.
+- Note that in the Web Console that the cookie `defenderDevCookie` has SameSite set to none.
+- Navigate to 'http://attacker.localhost/startAttack' and click submit to start the attack.
+- Note that the cookie gets sent and the state would have been changed on the defender back-end.
+
+** CSRF denied by "SameSite=Strict"
+
+- Now uncomment line 16 of web-attacks/csrf/defender-backend/src/app.ts. This line add "SameSite=Strict" to the cookie.
+- Try the above attack. It won't work. On Chrome one even gets an explanation in the Dev Console:
+
+This cookie was blocked because it had the "SameSite=Strict" sttribute and the request was made from a different site. This includes top-level navigation requests initiated by other sites.
+
+** CORF not prevented by "SameSite=Strict"
+
+Instead of using http://attacker.localhost/startAttack let's pretend that the attack had previously gained access to the subdomain sub.defender.localhost. So navigate to http://sub.defender.localhost/startAttack. 
+
+Now the attack works again!
+This is because the site of cookie set on defender.localhost is defender.localhost.
+The site of sub.defender.localhost is also defender.localhost.
+So now this isn't a cross-site request and the SameSite attribute is ignored.
+
+The site of a URL is determined by the public suffix list and the next specifier.
+>>>>>>> 9538e688d2f9581b78481196d62b04e1c0e76e5a
