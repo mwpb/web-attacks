@@ -10,13 +10,9 @@ services:
       - "./Nginx/nginx/error_logs:/etc/nginx/error_logs"
     ports:
       - "80:80"
-    # networks:
-    #   app:
-    #     aliases:
-    #       - attacker.localhost
-    #       - defender.localhost
 
   attacker:
+    image: web-attacks-attacker-backend
     build: ./attacker-backend
     container_name: web-attacks-attacker-backend
     hostname: web-attacks-attacker-backend
@@ -26,6 +22,7 @@ services:
       - ./attacker-backend:/usr/src/app
 
   defender:
+    image: web-attacks-defender-backend
     build: ./defender-backend
     container_name: web-attacks-defender-backend
     hostname: web-attacks-defender-backend

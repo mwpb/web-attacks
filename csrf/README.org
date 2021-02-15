@@ -1,4 +1,5 @@
 #+TITLE:README
 
 This repo is a demonstration of cross-site request forgery (CSRF).
-As such it is unsafe and should only be used for demonstration purposes.
+As such it is unsafe code and should only be used for demonstration purposes.
+
