@@ -1,7 +1,9 @@
 #+TITLE:README
 
-This repo is a demonstration of cross-site request forgery (CSRF).
+This repository is a demonstration of a cross-site request forgery (CSRF).
 As such it is unsafe code and should only be used for demonstration purposes.
+
+For a more theoretical account of the main idea behind this repository please see https://mwpb.uk/blog/sameSiteCookies.html.
 
 * How to run
 
